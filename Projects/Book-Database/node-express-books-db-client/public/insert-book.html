@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Front End Example: Add Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<h1>Books!</h1>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="books.html">Books</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="insert-book.html">Add a Book<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="show-book.html">Find a Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="update-book.html">Update a Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="delete-book.html">Delete a Book</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>Add Book</h1>
+    <h2>Please enter book information</h2>
+    <div class="jumbotron" id="output">
+        <div class="container">
+            <form id="book-info">
+                <div class="mb-3 form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" class="form-control" placeholder="Title" required>
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" name="description" id="description" class="form-control" placeholder="Description">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="year">Year:</label>
+                    <input type="number" name="year" id="year" class="form-control" placeholder="Year">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="author">Author:</label>
+                    <input type="text" name="author" id="author" class="form-control" placeholder="Author" required>
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="cover">No Hard Cover:</label>
+                    <input type="radio" id="cover" name="hardCover" checked>
+                    <label for="hardCover">Hard Cover:</label>
+                    <input type="radio" id="hardCover" name="hardCover">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="Price">
+                </div>
+                <label for="save-book" id="save-label"></label>
+                <input type="button" id="save-book" value="Save">
+            </form>
+            <div class="jumbotron" id="error" style="display: none"></div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("save-book").addEventListener("click", (event) =>{
+        document.getElementById("error").style.display = 'none';
+        let url = "https://node-express-books.herokuapp.com/api/books/"
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+                document.getElementById("output").innerHTML = "Book Successfully Saved!"
+            }
+            else if(this.status == 404 || this.status == 500 || !document.getElementById("title").value || !document.getElementById("author").value){
+                let error = "";
+                document.getElementById("error").style.display = 'block';
+                if(!document.getElementById("title").value && !document.getElementById("author").value) {
+                    error = "YOU MUST ENTER A BOOK TITLE AND AUTHOR";
+                }else if(!document.getElementById("title").value){
+                    error = "YOU MUST ENTER A BOOK TITLE";
+                }else if(!document.getElementById("author").value){
+                    error = "YOU MUST ENTER A BOOK AUTHOR";
+                }
+                document.getElementById("error").innerHTML = error;
+            }
+        };
+        let hardCover = "true";
+        if (document.getElementById("cover").checked) {
+            hardCover = "false";
+        }
+        let bookData = "title=" + document.getElementById("title").value + "&" +
+            "description=" + document.getElementById("description").value  + "&" +
+            "year="  + document.getElementById("year").value  + "&" +
+            "author="  + document.getElementById("author").value  + "&" +
+            "hardCover="  + hardCover  + "&" +
+            "price="  + document.getElementById("price").value  + "&";
+        xhttp.open('POST', url, true);
+        // Just needed to place this line AFTER opening the object
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(bookData);
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

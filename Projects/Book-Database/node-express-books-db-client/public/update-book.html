@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<h1>Books!</h1>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="books.html">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="insert-book.html">Add a Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="show-book.html">Find a Book</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="update-book.html">Update a Book<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="delete-book.html">Delete a Book</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>Update a book</h1>
+    <h2>Please enter book ID</h2>
+    <div class="mb-3 form-group">
+        <label for="id">Book ID:</label>
+        <input type="text" name="id" id="id" class="form-control" placeholder="Book ID">
+    </div>
+    <div class="mb-3 form-group">
+        <input type="button" id="find-book" value="Search">
+    </div>
+    <div class="jumbotron" id="output"></div>
+    <div class="jumbotron" style="display: none" id="update">
+        <div class="container">
+            <h1>Update Book</h1>
+            <h2>Please enter book information</h2>
+            <div class="container">
+                <form id="book-info">
+                    <div class="mb-3 form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="Title">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" name="description" id="description" class="form-control" placeholder="Description">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="year">Year:</label>
+                        <input type="number" name="year" id="year" class="form-control" placeholder="Year">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author" class="form-control" placeholder="Author">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="cover">No Hard Cover:</label>
+                        <input type="radio" id="cover" name="hardCover">
+                        <label for="hardCover">Hard Cover:</label>
+                        <input type="radio" id="hardCover" name="hardCover">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" name="price" id="price" class="form-control"
+                               placeholder="Price">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <input type="button" id="update-book" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function CreateTable(data){
+        let table = "";
+        table =
+            '<table class="table table-bordered table-hover"> \n' +
+            '   <thead>\n' +
+            '       <tr>\n' +
+            '           <th scope="col">ID</th> \n'+
+            '           <th scope="col">Title</th> \n'+
+            '           <th scope="col">Description</th> \n'+
+            '           <th scope="col">Year</th> \n'+
+            '           <th scope="col">Author</th> \n'+
+            '           <th scope="col">Hard Cover</th> \n'+
+            '           <th scope="col">Price</th> \n'+
+            '       </tr>\n' +
+            '   </thead>\n' +
+            '   <tbody>\n';
+        let hardCover = "No";
+        if (data["hardCover"]){
+            hardCover = "Yes";
+        }
+        table +=
+            '       <tr>\n' +
+            '           <td>' + data["_id"] + '</td>\n' +
+            '           <td>' + data["title"] + '</td>\n' +
+            '           <td>' + data["description"]+  '</td>\n' +
+            '           <td>' + data["year"]+  '</td>\n' +
+            '           <td>' + data["author"]+  '</td>\n' +
+            '           <td>' + hardCover + '</td>\n' +
+            '           <td>$' + data["price"].toFixed(2) +  '</td>\n' +
+            '       </tr>\n';
+        table +=
+            '   </tbody>\n' +
+            '</table>\n'
+        return table;
+    }
+    document.getElementById("find-book").addEventListener("click", (event) =>{
+        let userID = document.getElementById("id").value;
+        let url = "https://node-express-books.herokuapp.com/api/books/" + userID;
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200 && document.getElementById("id").value){
+                let data = JSON.parse(this.responseText);
+                document.getElementById("output").innerHTML = CreateTable(data);
+                if(data["hardCover"] === true){
+                    document.getElementById("hardCover").checked = true;
+                    document.getElementById("cover").checked = false;
+                }else{
+                    document.getElementById("hardCover").checked = false;
+                    document.getElementById("cover").checked = true;
+                }
+                document.getElementById("update").style.display = 'block';
+            }else if (this.status == 404 || this.status == 500 || !document.getElementById("id").value){
+                let error;
+                if(!document.getElementById("id").value){
+                    error = "YOU MUST ENTER A BOOK ID"
+                }else {
+                    error = "COULD NOT FIND BOOK ID"
+                }
+                document.getElementById("output").innerHTML = error;
+                document.getElementById("update").style.display = 'none';
+            }
+        };
+        xhttp.open('GET', url, true);
+        xhttp.send();
+    });
+    document.getElementById("update-book").addEventListener("click", (event) =>{
+        let userID = document.getElementById("id").value;
+        let url = "https://node-express-books.herokuapp.com/api/books/" + userID;
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+                let data = JSON.parse(this.responseText);
+                document.getElementById("output").innerHTML = CreateTable(data);
+            }
+        };
+        let hardCover = "false";
+        if (document.getElementById("hardCover").checked) {
+            hardCover = "true";
+        }
+        let bookData = "";
+        if(document.getElementById("title").value) {
+            bookData += "title=" + document.getElementById("title").value + "&";
+        }
+        if(document.getElementById("description").value) {
+            bookData += "description=" + document.getElementById("description").value + "&";
+        }
+        if(document.getElementById("year").value) {
+            bookData += "year=" + document.getElementById("year").value + "&";
+        }
+        if(document.getElementById("author").value) {
+            bookData += "author=" + document.getElementById("author").value + "&";
+        }
+        bookData += "hardCover="  + hardCover  + "&";
+        if(document.getElementById("price").value) {
+            bookData += "price="  + document.getElementById("price").value  + "&";
+        }
+        xhttp.open('PATCH', url, true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(bookData);
+        document.getElementById("book-info").reset();
+        document.getElementById("update").style.display = "none";
+        // document.getElementById("output").innerHTML += "Book with ID " + userID + " has been successfully updated!";
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

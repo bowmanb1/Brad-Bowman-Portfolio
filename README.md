@@ -10,3 +10,7 @@ My interest in cybersecurity was spurred on by my grandfather's involvment in in
 ## More About Me: 
 My <a href="https://www.linkedin.com/in/brad-bowman-198185188/">LinkedIn</a> page. <br>
 My <a href="https://github.com/bowmanb1">Github</a> home page. <br>
+
+### Contact Information: 
+- email: 13bradb@gmail.com
+- Phone number (cell): (253)363-0785

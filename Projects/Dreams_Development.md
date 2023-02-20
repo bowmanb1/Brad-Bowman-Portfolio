@@ -5,12 +5,6 @@
 
 ## I have included some demo videos below: 
 
-
-<iframe width="210" height="315" 
-src="https://www.youtube.com/watch?v=3fdGrKRZiwc?autoplay=0">Uniform customization and throwing</iframe>
-<iframe width="420" height="315"
-src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1">
-</iframe>
 American Football Game: 
 - <a href="https://www.youtube.com/watch?v=3fdGrKRZiwc">Uniform Customization and Throwing</a>
 - <a href="https://www.youtube.com/watch?v=lQBdQOvCwck">Wide Receiver Catching/Defensive Back Coverage</a>

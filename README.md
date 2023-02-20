@@ -1,5 +1,7 @@
 <img src="https://raw.githubusercontent.com/bowmanb1/Brad-Bowman-Portfolio/master/Portfolio-Header.png" alt="Banner that says Brad Bowman - Computer Science Student at Seattle Pacific University">
 
+<img src="https://user-images.githubusercontent.com/103608569/220188919-26ef1fc5-f715-4053-97cd-9201dfa45c81.JPG" width=210>
+
 I am a computer science student at Seattle Pacific University. I have a wide variety of interests in the realm of computer science, but my top three are: 
 - Cybersecurity
 - Game design

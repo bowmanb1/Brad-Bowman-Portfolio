@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/59579852/220014740-2af192a5-5f8b-4596-a2ce-a454307a5d63.png)
+
+
 # Playstation's <i>Dreams</i> platform gives users an inuitive way to design sculptures, custom sounds, logic based systems, and full games. Using this platform, I have been working on an American football game designed for virtual reality. Although the project is not finished, I have made notable strides with development. 
 ## I have included some demo videos below: 
 - <a href="https://www.youtube.com/watch?v=3fdGrKRZiwc">Uniform Customization and Throwing</a>
